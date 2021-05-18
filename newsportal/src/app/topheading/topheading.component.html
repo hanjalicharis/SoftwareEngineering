@@ -1,1 +1,11 @@
-<p>topheading works!</p>
+<div class="container">
+    <div class="row">
+        <div *ngFor ="let d of topheadingDisplay" class="col-lg-3 mb-3">
+            <div class="box">
+                <img src="{{d.urlToImage}}" width="100%" >
+                <h5>{{d.title}}</h5>
+                <a href="{{d.url}}">Read More</a>
+            </div>
+        </div>
+    </div>
+</div>
