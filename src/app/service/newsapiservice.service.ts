@@ -9,9 +9,9 @@ export class NewsapiserviceService {
   constructor(private _http:HttpClient) { }
 
   // URL FOR NEWS API
-  // api key : f9fbaedf0f5448d58561f12e9a8c81dc
+  // api key : be5c3549923ecfd08cb7b7964ee3db8b
 
-  newsApiUrl = "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=f9fbaedf0f5448d58561f12e9a8c81dc";
+  newsApiUrl = "https://gnews.io/api/v4/search?q=example&token=be5c3549923ecfd08cb7b7964ee3db8b";
 
 
   // heading 
