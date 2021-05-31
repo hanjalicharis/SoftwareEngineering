@@ -7,13 +7,15 @@ import { TopheadingComponent } from './topheading/topheading.component';
 
 import {HttpClientModule} from '@angular/common/http';
 import {NewsapiserviceService} from './service/newsapiservice.service';
-import { EntertainmentComponent } from './entertainment/entertainment.component'
+import { EntertainmentComponent } from './entertainment/entertainment.component';
+import { HealthComponent } from './health/health.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     TopheadingComponent,
-    EntertainmentComponent
+    EntertainmentComponent,
+    HealthComponent
   ],
   imports: [
     BrowserModule,
