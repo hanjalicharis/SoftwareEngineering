@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NewsapiserviceService } from '../service/newsapiservice.service'
 
 @Component({
   selector: 'app-entertainment',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EntertainmentComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _services: NewsapiserviceService) { }
+
+  entertainmentDisplay: any = [];
 
   ngOnInit(): void {
+
+    this._services.entertainment().subscribe((result) => {
+      this.entertainmentDisplay = result.articles;
+    })
   }
 
 }
