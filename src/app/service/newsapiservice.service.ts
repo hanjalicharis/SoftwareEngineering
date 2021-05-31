@@ -25,16 +25,22 @@ export class NewsapiserviceService {
     return this._http.get(this.newsApiUrl);
   }
 
+  // entertainment
+
   entertainment(): Observable<any> {
     return this._http.get(this.entertainmentApiUrl);
   }
+
+  // health and corona
 
   health(): Observable<any> {
     return this._http.get(this.healthApiUrl);
   }
 
-  corona(): Observable<any> {
-    return this._http.get(this.coronaVirusAPI);
+  // corona counter
+
+  coronaCounter(): Observable<any> {
+    return this._http.get(this.coronaVirusAPI).pipe((response) => response);
   }
 
 
