@@ -16,6 +16,7 @@ export class EntertainmentComponent implements OnInit {
 
     this._services.entertainment().subscribe((result) => {
       this.entertainmentDisplay = result.articles;
+      console.log(result.articles);
     })
   }
 

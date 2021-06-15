@@ -10,13 +10,19 @@ import { NewsapiserviceService } from './service/newsapiservice.service';
 import { EntertainmentComponent } from './entertainment/entertainment.component';
 import { HealthComponent } from './health/health.component'
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { CoronaVirusComponent } from './corona-virus/corona-virus.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopheadingComponent,
     EntertainmentComponent,
-    HealthComponent
+    HealthComponent,
+    RegisterComponent,
+    LoginComponent,
+    CoronaVirusComponent,
   ],
   imports: [
     BrowserModule,

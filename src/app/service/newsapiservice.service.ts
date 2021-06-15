@@ -14,7 +14,7 @@ export class NewsapiserviceService {
 
   newsApiUrl = "https://gnews.io/api/v4/search?q=example&lang=en&max=100&country=us&token=be5c3549923ecfd08cb7b7964ee3db8b";
   entertainmentApiUrl = "https://gnews.io/api/v4/search?q=entertainment&max=100&lang=en&country=us&topic=entertainment&token=be5c3549923ecfd08cb7b7964ee3db8b";
-  coronaVirusAPI = "https://api.covid19api.com/summary";
+  coronaVirusAPI = "https://api.apify.com/v2/key-value-stores/tVaYRsPHLjNdNBu7S/records/LATEST?disableRedirect=true";
   healthApiUrl = "https://gnews.io/api/v4/search?q=health&lang=en&country=us&max=100&topic=entertainment&token=be5c3549923ecfd08cb7b7964ee3db8b";
 
 
@@ -40,7 +40,7 @@ export class NewsapiserviceService {
   // corona counter
 
   coronaCounter(): Observable<any> {
-    return this._http.get(this.coronaVirusAPI).pipe((response) => response);
+    return this._http.get(this.coronaVirusAPI);
   }
 
 

@@ -1,0 +1,12 @@
+<div class="container-fluid mt-5 p-5">
+    <div class="container">
+        <h1>CORONA VIRUS INFORMATION</h1>
+        <div class="row">
+            <div *ngFor="let c of coronaDisplay" class="col" id="posebni">
+                <p>Country: {{c.country}}</p>
+                <p>New cases: {{c.infected}}</p>
+                <p>Recovered: {{c.recovered}}</p>
+            </div>
+        </div>
+    </div>
+</div>
