@@ -34,6 +34,9 @@ export class LoginComponent implements OnDestroy {
       if (data.status == 200) {
         this.router.navigateByUrl('/corona');
       }
+      else {
+
+      }
     });
   }
 
