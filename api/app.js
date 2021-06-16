@@ -2,6 +2,9 @@ const express = require('express')
 const mongoose = require('mongoose');
 const app = express();
 const databaseString = "mongodb+srv://hanjalicharis:haris1234@cluster0.mu8zl.mongodb.net/haris-se?retryWrites=true&w=majority";
+const cors = require('cors');
+
+app.use(cors());
 
 mongoose.connect(databaseString, {
     useNewUrlParser: true,
