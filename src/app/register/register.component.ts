@@ -36,9 +36,6 @@ export class RegisterComponent implements OnDestroy {
       if (data.status == 201) {
         this.router.navigateByUrl('/login');
       }
-      else {
-
-      }
     });
   }
   ngOnDestroy(): void {

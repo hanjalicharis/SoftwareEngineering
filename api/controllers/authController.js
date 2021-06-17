@@ -1,7 +1,24 @@
+const { promisify } = require("util");
 const mongoose = require('mongoose');
-const User = require('../models/usersModel');
-const bcrypt = require('bcrypt');
-const crypto = require('crypto');
+const dotenv = require('dotenv');
+const jwt = require("jsonwebtoken");
+const User = require("../models/usersModel");
+
+const JWT_SECRET = "hanjalicharis";
+const JWT_EXPIRES_IN = 3600;
+
+
+const createToken = id => {
+    return jwt.sign(
+        {
+            id,
+        },
+        JWT_SECRET,
+        {
+            expiresIn: JWT_EXPIRES_IN
+        },
+    );
+};
 
 module.exports.registerUser = async (req, res, next) => {
     if (!req.body.name || !req.body.email || !req.body.password) {
@@ -21,7 +38,6 @@ module.exports.registerUser = async (req, res, next) => {
                 })
 
                 newUser.password = require("crypto").createHash('md5').update(newUser.password).digest('hex');
-                //console.log(newUser.password);
                 await newUser.save();
 
                 res.status(201).json({ message: "Succesfuly created the account!" });
@@ -42,8 +58,16 @@ module.exports.loginUser = async (req, res, next) => {
 
                 hashedPassword = require("crypto").createHash('md5').update(req.body.password).digest('hex');
                 if (hashedPassword === user.password) {
-                    res.status(200).json({ message: "Valid password" });
-                } else {
+
+                    const token = createToken(user.id);
+                    user.password = undefined;
+
+                    res.status(200).json({
+                        status: "success",
+                        token
+                    });
+                }
+                else {
                     res.status(400).json({ error: "Invalid Password" });
                 }
             }
@@ -51,28 +75,55 @@ module.exports.loginUser = async (req, res, next) => {
                 res.status(401).json({ error: "User does not exist" });
             }
 
+
+
         } catch (err) {
             next(err);
         }
     }
 }
 
-/*module.exports.updateUserById = async (req, res, next) => {
+exports.protect = async (req, res, next) => {
     try {
-        const user = await User.findById(req.params.id).exec();
-        console.log(user)
-        if (user) {
-            User.updateMany(
-                { _id: req.params.id },
-                {
-                    $set: { name: req.body.name }
-                }
-            ).exec()
-            res.status(200).send();
-        } else {
-            res.status(404).send();
+        // 1) check if the token is there
+        let token;
+        if (
+            req.headers.authorization &&
+            req.headers.authorization.startsWith("Bearer")
+        ) {
+            token = req.headers.authorization.split(" ")[1];
         }
+        if (!token) {
+            return next(
+                new AppError(
+                    401,
+                    "fail",
+                    "You are not logged in! Please login in to continue",
+                ),
+                req,
+                res,
+                next,
+            );
+        }
+
+        // 2) Verify token
+        const decode = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+        // 3) check if the user is exist (not deleted)
+        const user = await User.findById(decode.id);
+        if (!user) {
+            return next(
+                new AppError(401, "fail", "This user is no longer exist"),
+                req,
+                res,
+                next,
+            );
+        }
+
+        req.user = user;
+        next();
     } catch (err) {
         next(err);
     }
-}*/
+};
+
